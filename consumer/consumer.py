@@ -70,7 +70,7 @@ class OrderProcessor:
         print(f"   Order ID:         {order['orderId']}")
         print(f"   Product:          {order['product']}")
         print(f"   Price:            ${order['price']:.2f}")
-        print(f"   📊 AGGREGATION STATS:")
+        print(f"    AGGREGATION STATS:")
         print(f"      Total Orders:    {self.total_orders}")
         print(f"      Total Revenue:   ${self.total_price:.2f}")
         print(f"      Running Average: ${self.running_average:.2f}")
@@ -105,23 +105,23 @@ class OrderProcessor:
         # Retry loop
         for attempt in range(1, MAX_RETRIES + 1):
             try:
-                print(f"\n🔄 Processing attempt {attempt}/{MAX_RETRIES} for Order: {order['orderId']}")
+                print(f"\n Processing attempt {attempt}/{MAX_RETRIES} for Order: {order['orderId']}")
                 self.process_order(order)
                 
                 # Success - commit offset
                 self.consumer.commit(message=msg)
-                print(f"✔️  Offset committed successfully")
+                print(f"  Offset committed successfully")
                 return True
                 
             except Exception as e:
-                print(f"⚠️  Attempt {attempt} failed: {str(e)}")
+                print(f" Attempt {attempt} failed: {str(e)}")
                 
                 if attempt < MAX_RETRIES:
-                    print(f"⏳ Retrying in {RETRY_DELAY} seconds...")
+                    print(f" Retrying in {RETRY_DELAY} seconds...")
                     time.sleep(RETRY_DELAY)
                 else:
                     # All retries exhausted - send to DLQ
-                    print(f"❌ All {MAX_RETRIES} retries exhausted!")
+                    print(f" All {MAX_RETRIES} retries exhausted!")
                     self.send_to_dlq(msg, str(e))
                     
                     # Commit offset even for failed messages to avoid reprocessing
@@ -130,11 +130,11 @@ class OrderProcessor:
     
     def run(self):
         """Main consumer loop"""
-        print("🚀 Starting Order Consumer...")
-        print(f"📥 Consuming from topic: {TOPIC_NAME}")
-        print(f"👥 Consumer group: {CONSUMER_GROUP}")
-        print(f"🔄 Max retries: {MAX_RETRIES}")
-        print(f"💀 DLQ topic: {DLQ_TOPIC}")
+        print("Starting Order Consumer...")
+        print(f"Consuming from topic: {TOPIC_NAME}")
+        print(f"Consumer group: {CONSUMER_GROUP}")
+        print(f"Max retries: {MAX_RETRIES}")
+        print(f"DLQ topic: {DLQ_TOPIC}")
         print("-" * 70)
         
         try:
@@ -154,13 +154,13 @@ class OrderProcessor:
                 self.process_message_with_retry(msg)
                 
         except KeyboardInterrupt:
-            print("\n\n⏹️  Consumer stopped by user")
+            print("\n\n Consumer stopped by user")
         finally:
-            print("\n🔄 Closing consumer...")
+            print("\n Closing consumer...")
             self.consumer.close()
             self.dlq_producer.flush()
             print("✅ Consumer shutdown complete")
-            print(f"\n📊 Final Statistics:")
+            print(f"\n Final Statistics:")
             print(f"   Total Orders Processed: {self.total_orders}")
             print(f"   Total Revenue: ${self.total_price:.2f}")
             print(f"   Average Order Price: ${self.running_average:.2f}")

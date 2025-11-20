@@ -48,8 +48,8 @@ def main():
     }
     producer = Producer(producer_conf)
     
-    print("🚀 Starting Order Producer...")
-    print("📊 Producing orders to Kafka topic:", TOPIC_NAME)
+    print("Starting Order Producer...")
+    print("Producing orders to Kafka topic:", TOPIC_NAME)
     print("-" * 60)
     
     order_count = 0
@@ -65,7 +65,7 @@ def main():
                 'timestamp': int(time.time() * 1000)
             }
             
-            print(f"\n📦 Producing Order #{order_count}:")
+            print(f"\n Producing Order #{order_count}:")
             print(f"   Order ID: {order['orderId']}")
             print(f"   Product:  {order['product']}")
             print(f"   Price:    ${order['price']:.2f}")
@@ -90,7 +90,7 @@ def main():
             time.sleep(2)
             
     except KeyboardInterrupt:
-        print("\n\n⏹️  Producer stopped by user")
+        print("\n\n Producer stopped by user")
     finally:
         print("\n🔄 Flushing remaining messages...")
         producer.flush()
