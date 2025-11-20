@@ -1,0 +1,25 @@
+# Virtual environment
+venv/
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Logs
+*.log
+
+# IDE/editor settings
+.vscode/
+.idea/
+
+# Mac/Windows system files
+.DS_Store
+Thumbs.db
+
+# Pytest cache
+.pytest_cache/
+
+# Kafka specific temp or output files (if any)
+*.out
