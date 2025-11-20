@@ -57,19 +57,19 @@ pip install -r requirements.txt
 
 3. **Run the System**
 
-## Start the docker containers
+#### Start the docker containers
 
 ```bash
 docker-compose up -d
 ```
 
-## Start the Producer
+#### Start the Producer
 
 ```bash
 python producer/producer.py
 ```
 
-## Start the Consumer
+#### Start the Consumer
 
 ```bash
 python consumer/consumer.py
