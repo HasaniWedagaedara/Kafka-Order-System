@@ -26,6 +26,12 @@ This project demonstrates a **Kafka-based order processing system** using Python
 
 ---
 
+
+## Work Flow
+
+![Alt text](images/Work%20Flow.png)
+
+
 ## Prerequisites
 
 - Python 3.11  
@@ -61,6 +67,9 @@ pip install -r requirements.txt
 
 ```bash
 docker-compose up -d
+docker exec -it kafka kafka-topics --create --topic orders --bootstrap-server localhost:9092 --partitions 3 --replication-factor 1
+docker exec -it kafka kafka-topics --create --topic orders-dlq --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+
 ```
 
 #### Start the Producer
